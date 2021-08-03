@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>Blockonomics</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Blockonomics Payment API Demo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'payment:donate' %}">Products</a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        <h4 class="title is-4">Order#: {{order_id}}</h4>
+        <hr>     
+        <div class="row">
+            <div id="paymentstatus" style="color:blue;display:true;">Payment Status: {{status}}</div>
+            <div class="col-md-6 col-sm-12">
+            <p>Amount: <strong>{{bits}}</strong> BTC ⇌ <strong>{{value}}</strong> USD</p>
+            <p>Bitcoin Address : <strong>{{addr}}</strong></p>
+            <a href="bitcoin:{{addr}}?amount={{bits}}">
+                <img src="https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address={{addr}}&amount={{bits}}&color=1">
+            </a>   
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="subtitle">Order Details: </h4>
+                <table class="table">
+                <tbody>
+                    <tr>
+                    <td colspan="2" align=left><strong>Total:</strong></td>
+                    <td><strong>${{value}}</strong></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" align=left><strong>Paid Bitcoins:</strong></td>
+                      <td><strong>{{paid}}</strong></td>
+                      </tr>
+                    
+                </tbody>
+                </table>
+                {% if path %}
+                <div>
+                    <h1>Transavtion Succesfull</h1>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        var address="{{addr}}";
+        var status="{{invoice_status}}";
+      </script>
+      <script type="text/javascript" src="{% static 'js/invoice.js' %}"></script>
+      
+</body>
+</html>
